@@ -12,9 +12,6 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
     const headingStyle =
         "text-lg font-bold text-gray-900 mb-3";
 
-    const textStyle =
-        "text-gray-800 leading-relaxed";
-
     return (
         <article className="bg-white border border-gray-200 shadow-sm rounded-xl p-6 md:p-8">
 

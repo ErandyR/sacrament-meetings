@@ -1,9 +1,11 @@
+
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 
-export default function NavLinks() {
+function NavLinksContent() {
     const pathname = usePathname();
 
     const isHomeActive = pathname === "/";
@@ -13,10 +15,9 @@ export default function NavLinks() {
         <nav aria-label="Primary" className="flex space-x-4">
             <Link
                 href="/"
-                className={`px-3 py-2 rounded-md text-sm font-medium ${isHomeActive
-                        ? "bg-blue-600 text-white"
-                        : "text-gray-700 hover:bg-gray-200"
-                    }`}
+                className={isHomeActive
+                    ? "font-medium text-blue-700 underline"
+                    : "font-medium text-gray-700 hover:text-blue-700"}
                 aria-current={isHomeActive ? "page" : undefined}
             >
                 Home
@@ -24,14 +25,21 @@ export default function NavLinks() {
 
             <Link
                 href="/meetings"
-                className={`px-3 py-2 rounded-md text-sm font-medium ${isMeetingsActive
-                        ? "bg-blue-600 text-white"
-                        : "text-gray-700 hover:bg-gray-200"
-                    }`}
+                className={isMeetingsActive
+                    ? "font-medium text-blue-700 underline"
+                    : "font-medium text-gray-700 hover:text-blue-700"}
                 aria-current={isMeetingsActive ? "page" : undefined}
             >
                 Meetings
             </Link>
         </nav>
+    );
+}
+
+export default function NavLinks() {
+    return (
+        <Suspense fallback={<nav aria-label="Primary" className="h-6" />}>
+            <NavLinksContent />
+        </Suspense>
     );
 }
