@@ -1,21 +1,22 @@
+
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { getMeetings } from "@/lib/meeting-db";
 
 export default async function CurrentMeetingPage() {
-    const today = new Date();
+    await connection();
 
-    // Find the most recent Sunday
+    const today = new Date();
     const currentSunday = new Date(today);
+
     currentSunday.setDate(today.getDate() - today.getDay());
 
-    // Format using local date values
     const year = currentSunday.getFullYear();
     const month = String(currentSunday.getMonth() + 1).padStart(2, "0");
     const day = String(currentSunday.getDate()).padStart(2, "0");
 
     const sundayDate = `${year}-${month}-${day}`;
 
-    // Find the meeting for that Sunday
     const meetings = getMeetings(sundayDate);
     const currentMeeting = meetings[0];
 
