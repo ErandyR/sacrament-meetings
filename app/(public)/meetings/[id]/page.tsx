@@ -1,3 +1,5 @@
+
+import { Suspense } from "react";
 import MeetingDetail from "@/components/MeetingDetail";
 import type { SacramentMeeting } from "@/lib/types";
 import { notFound } from "next/navigation";
@@ -6,7 +8,7 @@ interface MeetingPageProps {
     params: Promise<{ id: string }>;
 }
 
-export default async function MeetingPage({ params }: MeetingPageProps) {
+async function MeetingContent({ params }: MeetingPageProps) {
     const { id } = await params;
 
     const response = await fetch(
@@ -28,5 +30,19 @@ export default async function MeetingPage({ params }: MeetingPageProps) {
         <section>
             <MeetingDetail meeting={meeting} />
         </section>
+    );
+}
+
+export default function MeetingPage({ params }: MeetingPageProps) {
+    return (
+        <Suspense
+            fallback={
+                <div className="text-center py-12">
+                    Loading meeting details...
+                </div>
+            }
+        >
+            <MeetingContent params={params} />
+        </Suspense>
     );
 }

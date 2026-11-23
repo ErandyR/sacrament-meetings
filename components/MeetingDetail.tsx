@@ -68,7 +68,10 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
                 <div className="space-y-3 text-gray-800">
                     <p>
                         <strong className="text-gray-950">Opening Hymn:</strong>{" "}
-                        {meeting.openingHymn.title} (Hymn {meeting.openingHymn.number})
+                        {meeting.openingHymn?.title ?? "No hymn selected"}
+                        {meeting.openingHymn?.number
+                            ? ` (Hymn ${meeting.openingHymn.number})`
+                            : ""}
                     </p>
 
                     <p>
@@ -82,7 +85,7 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
             <section className={sectionStyle}>
                 <h3 className={headingStyle}>Ward Business</h3>
 
-                {meeting.wardBusiness.length > 0 ? (
+                {meeting.wardBusiness?.length > 0 ? (
                     <ul className="list-disc pl-5 space-y-2 text-gray-800">
                         {meeting.wardBusiness.map((item, index) => (
                             <li key={index}>{item.description}</li>
@@ -104,9 +107,12 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
                     Sacrament
                 </h3>
 
-                <p className="text-gray-900">
+                <p>
                     <strong>Sacrament Hymn:</strong>{" "}
-                    {meeting.sacramentHymn.title} (Hymn {meeting.sacramentHymn.number})
+                    {meeting.sacramentHymn?.title ?? "No hymn selected"}
+                    {meeting.sacramentHymn?.number
+                        ? ` (Hymn ${meeting.sacramentHymn.number})`
+                        : ""}
                 </p>
             </section>
 
@@ -116,7 +122,7 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
                     Speakers and Musical Numbers
                 </h3>
 
-                {meeting.speakers.length > 0 ? (
+                {meeting.speakers?.length > 0 ? (
                     <ul className="space-y-3 text-gray-800">
                         {meeting.speakers.map((item, index) => (
                             <li
@@ -147,7 +153,10 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
                 <div className="space-y-3 text-gray-800">
                     <p>
                         <strong className="text-gray-950">Closing Hymn:</strong>{" "}
-                        {meeting.closingHymn.title} (Hymn {meeting.closingHymn.number})
+                        {meeting.closingHymn?.title ?? "No hymn selected"}
+                        {meeting.closingHymn?.number
+                            ? ` (Hymn ${meeting.closingHymn.number})`
+                            : ""}
                     </p>
 
                     <p>

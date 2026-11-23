@@ -1,3 +1,4 @@
+
 import { getMeetingById } from "@/lib/meeting-db";
 
 interface RouteContext {
@@ -20,7 +21,7 @@ export async function GET(
     }
 
     // Look for the requested meeting
-    const meeting = getMeetingById(meetingId);
+    const meeting = await getMeetingById(meetingId);
 
     // Return 404 if it doesn't exist
     if (!meeting) {

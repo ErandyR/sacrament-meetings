@@ -1,12 +1,13 @@
 
 import { getMeetings } from "@/lib/meeting-db";
 
-export function GET(request: Request) {
+export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
-    const date = searchParams.get("date");
+    const query = searchParams.get("query") || "";
+    const currentPage = Number(searchParams.get("page")) || 1;
 
-    const meetings = getMeetings(date);
+    const meetings = await getMeetings(query, currentPage);
 
     return Response.json(meetings);
 }
